@@ -1,0 +1,20 @@
+The details of the exercise are mentioned below:
+
+Check out the code at https://github.com/tastejs/todomvc/tree/gh-pages/examples/react and the corresponding application at 
+https://todomvc.com/examples/react/#/. This is a simple application that will help maintain a to-do list (i.e. a list of tasks the 
+user needs to complete).  You can add to the list by typing on the "What needs to be done?" box and hitting the return key.  You can 
+remove something from the list by using the "x" button at the right of every item (appears when you hover over it). When you check the 
+circle on the left, it strikes out the task to show that that the same is complete and the color also changes from Black to Grey. 
+Now the exercise is to modify the existing code so that the following are achieved:
+
+1. When I add a new activity, it should appear in Red font and gradually fade to black font in 15 seconds.
+
+2. The activity I tick 3rd last (to indicate completion) should appear in Yellow font, the task ticked 2nd last should appear in 
+Magenta font and the last task ticked should appear in Green.  All other ticked tasks should have the current grey color. Ofcourse as 
+I tick more tasks as complete, the colors of the prior 3 completed tasks will change.
+
+3. Add a couple of columns - the first one shows the time when the activity was added and the second one shows the time when the 
+activity was completed. Of course the second column will be empty if the activity is not yet ticked as complete.
+
+Please annotate the code well so that we can follow your thinking process easily. Make sure that you are using the code base given at 
+the URL mentioned above and not some other code base that gives similar functionality.
