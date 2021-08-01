@@ -48,7 +48,14 @@ const TodoItem = (props) => {
                     onChange={handleCompletedTask}
                     checked={todo.completionTime === null ? false : true}
                   />
-                  <label htmlFor={todo.id}>{todo.description}</label>
+                  <label
+                    className={
+                      todo.completionTime === null ? '' : styles.striked
+                    }
+                    htmlFor={todo.id}
+                  >
+                    {todo.description}
+                  </label>
                 </div>
                 <div className={styles.seperator}></div>
                 <div className={styles.taskTimestampContainer}>

@@ -11,6 +11,10 @@ label {
   margin: 16px;
 }
 
+.striked {
+  text-decoration: line-through;
+}
+
 .taskTimestampContainer {
   display: flex;
   flex-direction: row;
