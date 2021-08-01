@@ -11,7 +11,7 @@ const TodoItem = (props) => {
 
   const handleCompletedTask = (event) => {
     if (event.target.checked) {
-      console.log(event.target.value);
+      console.log(event.target.id);
     }
   };
 
@@ -21,17 +21,17 @@ const TodoItem = (props) => {
         toDoList.length > 0 &&
         toDoList.map((todo, index) => {
           return (
-            <div key={index}>
+            <div key={todo.id + index}>
               <div>
                 <div className={styles.taskContainer}>
                   <input
                     type="checkbox"
-                    name={`task-${index}`}
-                    id={`task-${index}`}
+                    name={todo.id}
+                    id={todo.id}
                     value={todo.description}
                     onChange={handleCompletedTask}
                   />
-                  <label htmlFor={`task-${index}`}>{todo.description}</label>
+                  <label htmlFor={todo.id}>{todo.description}</label>
                 </div>
                 <div className={styles.seperator}></div>
                 <div className={styles.taskTimestampContainer}>
@@ -53,7 +53,7 @@ const TodoItem = (props) => {
           );
         })}
       {toDoList && toDoList.length === 0 && (
-        <div>
+        <div className={styles.notodoCtn}>
           <p>No todo listed</p>
         </div>
       )}

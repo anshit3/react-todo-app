@@ -12,7 +12,8 @@ const AddTodo = (props) => {
 
   const handleSubmit = () => {
     let todoObj = {
-      creationTime: new Date().toDateString(),
+      id: Date.now(),
+      creationTime: new Date().toLocaleString(),
       completionTime: null,
       description: todo,
     };

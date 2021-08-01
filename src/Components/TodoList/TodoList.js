@@ -13,7 +13,9 @@ const TodoList = () => {
   return (
     <div className={styles.todolistContainer}>
       <AddTodo handleTodoAddition={handleTodoAddition} />
-      <TodoItem allToDosObj={todos} />
+      <div className={styles.listContainer}>
+        <TodoItem allToDosObj={todos} />
+      </div>
     </div>
   );
 };

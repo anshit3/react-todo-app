@@ -7,3 +7,8 @@
   border-radius: 10px;
   background-color: #9bd6fd;
 }
+
+.listContainer {
+  height: calc(100vh - 250px);
+  overflow-y: scroll;
+}
