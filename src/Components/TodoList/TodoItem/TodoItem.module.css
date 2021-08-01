@@ -15,6 +15,17 @@ label {
   text-decoration: line-through;
 }
 
+.last {
+  color: green;
+}
+
+.secondLast {
+  color: magenta;
+}
+
+.thirdLast {
+  color: yellow;
+}
 .taskTimestampContainer {
   display: flex;
   flex-direction: row;

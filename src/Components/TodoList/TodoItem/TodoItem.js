@@ -1,10 +1,44 @@
 import { useState, useEffect } from 'react';
 import styles from './TodoItem.module.css';
 
+const sortForCompletedTasks = (todoList) => {
+  return todoList.sort(function (a, b) {
+    var compA = new Date(a.completionTime),
+      compB = new Date(b.completionTime);
+    if (compA > compB) return -1;
+    if (compA < compB) return 1;
+    return 0;
+  });
+};
+
+const prepTodosAccToLastCompleted = (todoList, sortedList) => {
+  let tempCompTodo = [];
+  for (let i = 0; i < 3; i++) {
+    if (sortedList[i].completionTime != null) {
+      for (let j = 0; j < todoList.length; j++) {
+        if (sortedList[i].id == todoList[j].id) {
+          if (i == 0) {
+            todoList[j]['tag'] = 'recent-green';
+          }
+          if (i == 1) {
+            todoList[j]['tag'] = 'recent-second-magenta';
+          }
+          if (i == 2) {
+            todoList[j]['tag'] = 'recent-third-yellow';
+          }
+          tempCompTodo.push(todoList[j]);
+        } else if (todoList[j]['tag'] && !tempCompTodo.includes(todoList[j])) {
+          todoList[j]['tag'] = '';
+        }
+      }
+    }
+  }
+  return todoList;
+};
+
 const TodoItem = (props) => {
   const { allToDosObj } = props;
   const [toDoList, setTodoList] = useState(allToDosObj);
-  console.log(toDoList);
   useEffect(() => {
     setTodoList(allToDosObj);
   }, [allToDosObj]);
@@ -14,12 +48,17 @@ const TodoItem = (props) => {
       toDoList.forEach((element) => {
         if (element.id == event.target.id) {
           element.completionTime = Date.now();
-          console.log(element);
         }
       });
+      let tempToDoList = [...toDoList];
+      console.log(sortForCompletedTasks(tempToDoList));
+      console.log(
+        prepTodosAccToLastCompleted(
+          toDoList,
+          sortForCompletedTasks(tempToDoList)
+        )
+      );
       setTodoList([...toDoList]);
-      console.log(event.target.id);
-      console.log(toDoList);
     } else {
       toDoList.forEach((element) => {
         if (element.id == event.target.id) {
@@ -27,6 +66,11 @@ const TodoItem = (props) => {
           console.log(element);
         }
       });
+      let tempToDoList = [...toDoList];
+      prepTodosAccToLastCompleted(
+        toDoList,
+        sortForCompletedTasks(tempToDoList)
+      );
       setTodoList([...toDoList]);
     }
   };
@@ -49,9 +93,16 @@ const TodoItem = (props) => {
                     checked={todo.completionTime === null ? false : true}
                   />
                   <label
-                    className={
-                      todo.completionTime === null ? '' : styles.striked
-                    }
+                    className={[
+                      todo.tag == 'recent-third-yellow'
+                        ? styles.thirdLast
+                        : '',
+                      todo.tag == 'recent-second-magenta'
+                        ? styles.secondLast
+                        : '',
+                      todo.tag == 'recent-green' ? styles.last : '',
+                      todo.completionTime === null ? '' : styles.striked,
+                    ].join(' ')}
                     htmlFor={todo.id}
                   >
                     {todo.description}
