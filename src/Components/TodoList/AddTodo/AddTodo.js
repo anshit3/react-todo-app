@@ -7,7 +7,6 @@ const AddTodo = (props) => {
 
   const handlechangeOnTodoInput = (event) => {
     setTodo(event.target.value);
-    console.log(todo);
   };
 
   const handleSubmit = () => {
@@ -19,7 +18,6 @@ const AddTodo = (props) => {
     };
     handleTodoAddition(todoObj);
     setTodo('');
-    console.log(todoObj);
   };
   return (
     <div className={styles.mainContainer}>

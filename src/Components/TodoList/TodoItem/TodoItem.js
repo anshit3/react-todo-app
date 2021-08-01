@@ -3,15 +3,31 @@ import styles from './TodoItem.module.css';
 
 const TodoItem = (props) => {
   const { allToDosObj } = props;
-  const [toDoList, setTodoList] = useState(props);
-  console.log(allToDosObj);
+  const [toDoList, setTodoList] = useState(allToDosObj);
+  console.log(toDoList);
   useEffect(() => {
     setTodoList(allToDosObj);
   }, [allToDosObj]);
 
   const handleCompletedTask = (event) => {
     if (event.target.checked) {
+      toDoList.forEach((element) => {
+        if (element.id == event.target.id) {
+          element.completionTime = Date.now();
+          console.log(element);
+        }
+      });
+      setTodoList([...toDoList]);
       console.log(event.target.id);
+      console.log(toDoList);
+    } else {
+      toDoList.forEach((element) => {
+        if (element.id == event.target.id) {
+          element.completionTime = null;
+          console.log(element);
+        }
+      });
+      setTodoList([...toDoList]);
     }
   };
 
@@ -30,6 +46,7 @@ const TodoItem = (props) => {
                     id={todo.id}
                     value={todo.description}
                     onChange={handleCompletedTask}
+                    checked={todo.completionTime === null ? false : true}
                   />
                   <label htmlFor={todo.id}>{todo.description}</label>
                 </div>
@@ -44,7 +61,7 @@ const TodoItem = (props) => {
                     <span>
                       {todo.completionTime === null
                         ? 'Not Completed'
-                        : todo.completionTime}
+                        : new Date(todo.completionTime).toLocaleString()}
                     </span>
                   </div>
                 </div>
