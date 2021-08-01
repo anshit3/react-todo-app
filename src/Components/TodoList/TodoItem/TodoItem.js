@@ -10,7 +10,9 @@ const TodoItem = (props) => {
   }, [allToDosObj]);
 
   const handleCompletedTask = (event) => {
-    console.log(event.target.value);
+    if (event.target.checked) {
+      console.log(event.target.value);
+    }
   };
 
   return (
