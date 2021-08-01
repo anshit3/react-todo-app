@@ -1,37 +1,62 @@
+import { useState, useEffect } from 'react';
 import styles from './TodoItem.module.css';
 
-const TodoItem = () => (
-  <div>
-    <div>
-      <div className={styles.taskContainer}>
-        <input type="checkbox" name="task" id="1" />
-        <label htmlFor="1">
-          Task oneTask oneTask oneTask oneTask oneTask oneTask oneTask oneTask
-          oneTask oneTask oneTask oneTask oneTask one
-        </label>
-      </div>
-      <div className={styles.seperator}></div>
-      <div className={styles.taskTimestampContainer}>
+const TodoItem = (props) => {
+  const { allToDosObj } = props;
+  const [toDoList, setTodoList] = useState(props);
+  console.log(allToDosObj);
+  useEffect(() => {
+    setTodoList(allToDosObj);
+  }, [allToDosObj]);
+
+  const handleCompletedTask = (event) => {
+    console.log(event.target.value);
+  };
+
+  return (
+    <>
+      {toDoList &&
+        toDoList.length > 0 &&
+        toDoList.map((todo, index) => {
+          return (
+            <div key={index}>
+              <div>
+                <div className={styles.taskContainer}>
+                  <input
+                    type="checkbox"
+                    name={`task-${index}`}
+                    id={`task-${index}`}
+                    value={todo.description}
+                    onChange={handleCompletedTask}
+                  />
+                  <label htmlFor={`task-${index}`}>{todo.description}</label>
+                </div>
+                <div className={styles.seperator}></div>
+                <div className={styles.taskTimestampContainer}>
+                  <div>
+                    <span>Added: </span>
+                    <span>{todo.creationTime}</span>
+                  </div>
+                  <div>
+                    <span>Completed: </span>
+                    <span>
+                      {todo.completionTime === null
+                        ? 'Not Completed'
+                        : todo.completionTime}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      {toDoList && toDoList.length === 0 && (
         <div>
-          <span>Added: </span>
-          <span>23rd Feb</span>
+          <p>No todo listed</p>
         </div>
-        <div>
-          <span>Completed: </span>
-          <span>24th Feb</span>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div className={styles.taskContainer}>
-        <input type="checkbox" name="task" id="1" />
-        <label htmlFor="1">
-          Task oneTask oneTask oneTask oneTask oneTask oneTask oneTask oneTask
-          oneTask oneTask oneTask oneTask oneTask one
-        </label>
-      </div>
-    </div>
-  </div>
-);
+      )}
+    </>
+  );
+};
 
 export default TodoItem;
